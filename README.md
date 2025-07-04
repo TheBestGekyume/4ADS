@@ -3,3 +3,5 @@
 - ### Importe o Arquivo SQL no php my admin 
 - ### Abra um terminal no diretório do front end e rode o comando `npm install` para instalar todas as dependencias do Node.js
 - ### No mesmo terminal rode o comando `npm run dev` dev e abra o localhost na porta indicada.
+
+#RESOLVA O PROBLEMA DO BANCO
