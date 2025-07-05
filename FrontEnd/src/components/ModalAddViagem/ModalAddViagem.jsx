@@ -18,7 +18,7 @@ export function ModalAddViagem({ isOpen, onClose, refreshViagens, idViagem }) {
     if (idViagem) {
       const fetchViagem = async () => {
         try {
-          const response = await axios.get(`http://localhost/viacaocalango/BackEnd/crudViagem/exibirViagemPorId.php?id_viagem=${idViagem}`);
+          const response = await axios.get(`http://localhost/5000/crudViagem/exibirViagemPorId.php?id_viagem=${idViagem}`);
           if (response.data) {
             setFormData(response.data);
             console.log('Dados da viagem carregados com sucesso:', response.data);
@@ -58,13 +58,13 @@ export function ModalAddViagem({ isOpen, onClose, refreshViagens, idViagem }) {
 
     try {
       if (idViagem) {
-        const response = await axios.put('http://localhost/viacaocalango/BackEnd/crudViagem/editarViagem.php', {
+        const response = await axios.put('http://localhost/5000/crudViagem/editarViagem.php', {
           id_viagem: idViagem,
           ...formData
         });
         alert(response.data.success || response.data.error);
       } else {
-        const response = await axios.post('http://localhost/viacaocalango/BackEnd/crudViagem/criarViagem.php', formData);
+        const response = await axios.post('http://localhost/5000/crudViagem/criarViagem.php', formData);
         alert(response.data.success || response.data.error);
       }
 

@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 # Import das rotas de usuário
@@ -18,18 +18,32 @@ from trips.list import list_trips
 
 app = Flask(__name__)
 CORS(app, resources={
-    r"/*": {
-        "origins": "*",
-        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        "allow_headers": ["Content-Type", "Authorization"]
+    r"/autenticar": {
+        "origins": "http://localhost:3000",  # Apenas um valor string
+        "methods": ["POST", "OPTIONS"],
+        "allow_headers": ["Content-Type"],
+        "supports_credentials": True,
+        "expose_headers": ["Content-Type"]
     }
 })
+
+
+# @app.after_request
+# def after_request(response):
+#     response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
+#     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+#     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+#     response.headers.add('Access-Control-Allow-Credentials', 'true')
+#     return response
 
 # Rotas de Usuário
 @app.route('/autenticar', methods=['POST', 'OPTIONS'])
 def auth_route():
     if request.method == 'OPTIONS':
-        return '', 200
+        response = jsonify()
+        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        return response
     return authenticate_user()
 
 @app.route('/usuarios', methods=['GET'])

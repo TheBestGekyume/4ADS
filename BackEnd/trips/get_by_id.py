@@ -1,19 +1,18 @@
 from flask import jsonify, request
 from config import get_db_connection
 
-def get_trip_by_id():
+def get_trip_by_id(trip_id):  # Adicione o parâmetro trip_id aqui
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    
-    trip_id = request.args.get('id_viagem')
-    if not trip_id:
-        return jsonify({"error": "Parâmetro 'id_viagem' é obrigatório."}), 400
     
     try:
         cursor.execute("SELECT * FROM viagem WHERE id_viagem = %s", (trip_id,))
         trip = cursor.fetchone()
         
         if trip:
+            if 'assentos' in trip and trip['assentos']:
+                import json
+                trip['assentos'] = json.loads(trip['assentos'])
             return jsonify(trip)
         else:
             return jsonify({"error": "Viagem não encontrada."}), 404

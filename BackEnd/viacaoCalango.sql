@@ -21,6 +21,9 @@ SET time_zone = "+00:00";
 -- Banco de dados: `viacaocalango`
 --
 
+CREATE DATABASE IF NOT EXISTS viacaocalango;
+USE viacaocalango;
+
 -- --------------------------------------------------------
 
 --

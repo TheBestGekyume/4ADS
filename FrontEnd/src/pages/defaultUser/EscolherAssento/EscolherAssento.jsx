@@ -37,7 +37,7 @@ export function EscolherAssento() {
             return;
         }
 
-        axios.get('http://localhost/viacaocalango/BackEnd/crudViagem/listarViagem.php')
+        axios.get(`http://localhost/5000/viagens/${id}`)
             .then((response) => {
                 const viagens = response.data;
                 const viagemSelecionada = viagens.find(v => v.id_viagem === viagemId);
@@ -83,7 +83,7 @@ export function EscolherAssento() {
         console.log("JSON para requisição:", JSON.stringify(objetoCompra));
 
         try {
-            const response = await axios.put("http://localhost/viacaocalango/BackEnd/crudUsuario/comprarAssento.php", objetoCompra);
+            const response = await axios.put("http://localhost/5000/crudUsuario/comprarAssento.php", objetoCompra);
             console.log(response.data);
             setConfirmarPedido(true);
         } catch (error) {

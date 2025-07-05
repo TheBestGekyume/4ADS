@@ -20,7 +20,7 @@ export function MinhasViagens() {
                 return;
             }
 
-            const viagensResponse = await axios.post('http://localhost/viacaocalango/BackEnd/crudUsuario/listarViagensUsuario.php', {
+            const viagensResponse = await axios.post('http://localhost/5000/crudUsuario/listarViagensUsuario.php', {
                 usuario_id: usuarioId
             });
 
@@ -71,7 +71,7 @@ export function MinhasViagens() {
                                         ) : (
                                             <span>Sem assentos comprados</span>
                                         )}
-                                        <div style={{width: '100%', display: 'flex', justifyContent: "center", marginTop:'2rem' }}>
+                                        <div style={{ width: '100%', display: 'flex', justifyContent: "center", marginTop: '2rem' }}>
                                             <strong>Viação Calango</strong>
                                         </div>
                                     </p>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "./passagemInfo.scss";
@@ -26,7 +26,7 @@ export function PassagemInfo({ local }) {
     };
 
     const refreshViagens = () => {
-        axios.get('http://localhost/viacaocalango/BackEnd/crudViagem/listarViagem.php')
+        axios.get('http://localhost/5000/viagens')
             .then((response) => {
                 setViagens(response.data || []);
             })
@@ -40,7 +40,7 @@ export function PassagemInfo({ local }) {
         if (!confirmDelete) return;
 
         try {
-            const response = await axios.delete('http://localhost/viacaocalango/BackEnd/crudViagem/deletarViagem.php', {
+            const response = await axios.delete('http://localhost/5000/crudViagem/deletarViagem.php', {
                 data: { id_viagem: idViagem }
             });
 
@@ -49,7 +49,7 @@ export function PassagemInfo({ local }) {
                 refreshViagens();
             } else {
                 alert(response.data.message || "Erro ao deletar a viagem.");
-                
+
             }
         } catch (error) {
             console.error("Erro ao deletar a viagem:", error);
@@ -144,7 +144,7 @@ export function PassagemInfo({ local }) {
                     )}
                 </section>
             ))}
-            
+
             <ModalAddViagem
                 isOpen={isModalOpen}
                 onClose={closeModal}

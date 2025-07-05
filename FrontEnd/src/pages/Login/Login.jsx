@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import "./login.scss"
@@ -17,9 +17,14 @@ export function Login({ setToken }) {
     const logarUsuario = (e) => {
         e.preventDefault();
 
-        axios.post('http://localhost/ViacaoCalango/BackEnd/crudUsuario/autenticarUsuario.php', {
+        axios.post('http://localhost:5000/autenticar', {  // Remova a barra após localhost
             email: userCredentials.email,
             senha: userCredentials.senha
+        }, {
+            withCredentials: true,
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
             .then((response) => {
                 const { status, tipo, nome, id_usuario } = response.data;
