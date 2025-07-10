@@ -29,9 +29,11 @@ export function PassagemInfo({ local }) {
         axios.get('http://localhost:5000/viagens')
             .then((response) => {
                 setViagens(response.data || []);
+                setErro(null);
             })
             .catch((error) => {
                 console.error("Erro ao buscar as viagens:", error);
+                setErro(`Erro ao carregar viagens. Tente novamente mais tarde.(${error})`);
             });
     };
 
@@ -53,6 +55,7 @@ export function PassagemInfo({ local }) {
             }
         } catch (error) {
             console.error("Erro ao deletar a viagem:", error);
+            setErro("Erro ao deletar a viagem:", error);
             alert("Erro ao deletar a viagem. Tente novamente.");
         }
     };

@@ -25,9 +25,9 @@ export function Footer() {
                         <h5 className='mb-3'>ACESSO RÁPIDO</h5>
                         <p>FALE CONOSCO</p>
                         <p>LOGIN</p>
-                        <p>© 2023 Viação Calango. Todos os direitos reservados.</p>
+                        <p className='border-top pt-3'>© 2025 Viação Calango <br />Todos os direitos reservados</p>
                     </div>
-                    <div className="col d-flex flex-column align-items-center">
+                    <div className="col d-flex flex-column align-items-end">
                         <h5 className='mb-3'>RECEBA NOVIDADES POR E-MAIL</h5>
                         <input type="text" className="form-control mb-3 w-75" placeholder="E-MAIL" />
                         <button type="button" className='btn btn-warning mt-2 px-4'>ENVIAR</button>
