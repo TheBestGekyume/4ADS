@@ -41,6 +41,20 @@ class User:
             conn.close()
 
     @classmethod
+    def get_by_id(cls, user_id):
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        try:
+            cursor.execute(
+                "SELECT id_usuario, nome, email, tipo FROM usuario WHERE id_usuario = %s",
+                (user_id,)
+            )
+            return cursor.fetchone()
+        finally:
+            cursor.close()
+            conn.close()
+
+    @classmethod
     def get_all(cls):
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)

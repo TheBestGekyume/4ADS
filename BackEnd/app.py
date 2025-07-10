@@ -111,6 +111,10 @@ CORS(app, resources={
 def auth_route():
     return UserController.authenticate()
 
+@app.route('/usuarios/<int:user_id>', methods=['GET'])
+def get_user_by_id_route(user_id):
+    return UserController.get_by_id(user_id)
+
 @app.route('/usuarios', methods=['GET'])
 def list_users_route():
     return UserController.list()

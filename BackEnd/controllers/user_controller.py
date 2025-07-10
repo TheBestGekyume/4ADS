@@ -1,4 +1,5 @@
 from flask import jsonify, request
+from config import get_db_connection
 from models.user import User
 
 class UserController:
@@ -53,33 +54,73 @@ class UserController:
                     return jsonify({"error": "Falha ao criar usuário"}), 500
             except Exception as e:
                 return jsonify({"error": f"Erro ao criar usuário: {str(e)}"}), 500
-
+            
     @staticmethod
-    def list():
+    def get_by_id(user_id):
         try:
-            users = User.get_all()
-            return jsonify(users)
+            user = User.get_by_id(user_id)
+            if user:
+                return jsonify(user)
+            else:
+                return jsonify({"error": "Usuário não encontrado"}), 404
         except Exception as e:
-            return jsonify({"error": f"Erro ao listar usuários: {str(e)}"}), 500
+            return jsonify({"error": f"Erro ao buscar usuário: {str(e)}"}), 500
 
     @staticmethod
     def update():
         if request.method == 'PUT':
             data = request.get_json()
-            
-            required_fields = ['id_usuario', 'nome', 'senha', 'email', 'tipo']
-            if not all(field in data for field in required_fields):
+        
+            updatable_fields = ['nome', 'email', 'senha', 'tipo']
+            if not any(field in data for field in updatable_fields):
                 return jsonify({
-                    "error": "Campos obrigatórios ausentes."
+                    "error": "Pelo menos um campo deve ser enviado para atualização (nome, email, senha ou tipo)"
                 }), 400
-            
+        
             try:
-                if User.update(data['id_usuario'], data['nome'], data['senha'], data['email'], data['tipo']):
-                    return jsonify({"success": "Usuário atualizado com sucesso!"})
-                else:
-                    return jsonify({"error": "Usuário não encontrado."}), 404
+                conn = get_db_connection()
+                cursor = conn.cursor(dictionary=True)
+            
+                cursor.execute(
+                    "SELECT nome, email, senha FROM usuario WHERE id_usuario = %s",
+                    (data['id_usuario'],))
+                current_data = cursor.fetchone()
+            
+                if not current_data:
+                    return jsonify({"error": "Usuário não encontrado"}), 404
+            
+                nome = data.get('nome', current_data['nome'])
+                email = data.get('email', current_data['email'])
+                senha = data.get('senha', current_data['senha'])
+            
+                query = """
+                    UPDATE usuario 
+                    SET nome = %s, email = %s, senha = %s
+                    WHERE id_usuario = %s
+                """
+                cursor.execute(query, (
+                    nome,
+                    email,
+                    senha,
+                    data['id_usuario']
+                ))
+                conn.commit()
+            
+                return jsonify({
+                    "success": "Usuário atualizado com sucesso!",
+                   "updated_fields": {
+                        "nome": 'nome' in data,
+                        "email": 'email' in data,
+                        "senha": 'senha' in data,
+                    }
+                })
+            
             except Exception as e:
+                conn.rollback()
                 return jsonify({"error": f"Erro ao atualizar o usuário: {str(e)}"}), 500
+            finally:
+                cursor.close()
+                conn.close()
 
     @staticmethod
     def delete():

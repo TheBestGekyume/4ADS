@@ -1,0 +1,205 @@
+@use "../../app.scss" as *;
+
+.perfil-container {
+    background-color: $colorBlack000;
+    color: $colorWhite;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 2rem;
+    min-height: 100vh;
+
+     input[disabled] {
+        opacity: 0.7;
+        background-color: #f8f9fa;
+        border-color: #dee2e6;
+    }
+
+    input:not([disabled]) {
+        background-color: white;
+        border-color: #ced4da;
+    }
+
+    h2 {
+        color: $amarelo;
+        text-align: center;
+        margin-bottom: 2rem;
+        font-weight: lighter;
+    }
+
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem;
+        border: 2px solid $amarelo;
+        border-radius: 1rem;
+
+        .form-label {
+            color: $amarelo;
+            font-weight: lighter;
+        }
+
+        .form-control {
+            background-color: $colorBlack000;
+            color: $colorWhite;
+            border: 1px solid $amarelo;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            padding: 0.5rem;
+            outline: none;
+            transition: 250ms;
+
+            &:focus {
+                border-color: lighten($amarelo, 15%);
+                box-shadow: 0 0 0 0.25rem rgba($amarelo, 0.25);
+            }
+
+            &:disabled {
+                opacity: 0.7;
+                border-color: transparent;
+            }
+        }
+    }
+
+    .button-group {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+
+        button {
+            flex: 1;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: none;
+            font-weight: bold;
+            transition: 250ms;
+            opacity: 0.8;
+
+            &:hover {
+                opacity: 1;
+                transform: scale(1.02);
+            }
+
+            &.btn-primary {
+                background-color: $amarelo;
+                color: $colorBlack000;
+            }
+
+            &.btn-success {
+                background-color: #28a745;
+                color: $colorWhite;
+            }
+
+            &.btn-secondary {
+                background-color: #6c757d;
+                color: $colorWhite;
+            }
+
+            &.btn-danger {
+                background-color: #dc3545;
+                color: $colorWhite;
+            }
+        }
+    }
+
+    .alert {
+        padding: 1rem;
+        border-radius: 4px;
+        margin-bottom: 1.5rem;
+        text-align: center;
+
+        &.alert-danger {
+            background-color: rgba(#dc3545, 0.2);
+            border: 1px solid #dc3545;
+            color: #dc3545;
+        }
+
+        &.alert-success {
+            background-color: rgba(#28a745, 0.2);
+            border: 1px solid #28a745;
+            color: #28a745;
+        }
+    }
+
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba($colorBlack000, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+
+        .modal-content {
+            background: $colorBlack000;
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 2px solid $amarelo;
+            max-width: 500px;
+            width: 90%;
+
+            h3 {
+                margin-top: 0;
+                color: #dc3545;
+                text-align: center;
+            }
+
+            p {
+                color: $colorWhite;
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+
+            .modal-buttons {
+                display: flex;
+                gap: 1rem;
+
+                button {
+                    flex: 1;
+                    padding: 0.5rem;
+                    border-radius: 4px;
+                    border: none;
+                    font-weight: bold;
+                    transition: 250ms;
+
+                    &:hover {
+                        transform: scale(1.02);
+                    }
+
+                    &.btn-danger {
+                        background-color: #dc3545;
+                        color: $colorWhite;
+                        opacity: 0.8;
+
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+
+                    &.btn-secondary {
+                        background-color: #6c757d;
+                        color: $colorWhite;
+                        opacity: 0.8;
+
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        padding: 1rem;
+
+        form {
+            padding: 1rem;
+        }
+
+        .button-group {
+            flex-direction: column;
+        }
+    }
+}

@@ -49,6 +49,9 @@ export function NavBar({ setToken }) {
             <Link onClick={() => { setItemNav(3); }} className='link-router-dom' to="/minhasViagens">Minhas Viagens</Link>
           </li>
         )}
+        <li className={(itemNav === 4 || itemNavOption === 4) ? "styleLi" : "opacity-50"} >
+          <Link onClick={() => { setItemNav(4); }} className='link-router-dom' to="/perfil">Perfil</Link>
+        </li>
         <li onClick={logoutUser} className='opacity-50'>
           Sair
         </li>

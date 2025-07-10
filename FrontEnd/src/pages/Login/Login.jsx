@@ -69,11 +69,6 @@ export function Login({ setToken }) {
             return;
         }
 
-        if (userCredentials.senha.length < 6) {
-            setStatusErros("A senha deve ter pelo menos 6 caracteres");
-            return;
-        }
-
         const payload = {
             nome: userCredentials.nome,
             email: userCredentials.email,
