@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./about.scss"
 import maletaIcon from '../../../assets/maletaIcon.png'
@@ -21,7 +21,7 @@ export function About() {
         return (
             <div id='about' className='text-white'>
                 <section className='my-5 ps-5'>
-                    <div class="row gap-4">
+                    <div className="row gap-4">
                         <div className='col-4 text-center'>
                             <h2>QUEM SOMOS</h2>
                             <p>A Viação Calango é uma renomada empresa de transporte interestadual que tem como objetivo proporcionar aos seus passageiros uma experiência de viagem segura, confortável e confiável. Com uma trajetória sólida e uma equipe dedicada, somos referência no setor e nos orgulhamos de oferecer serviços de alta qualidade.</p>

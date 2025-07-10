@@ -33,18 +33,26 @@ class UserController:
     def create():
         if request.method == 'POST':
             data = request.get_json()
-            
-            required_fields = ['nome', 'senha', 'email', 'tipo']
+        
+            required_fields = ['nome', 'senha', 'email']
             if not all(field in data for field in required_fields):
                 return jsonify({"error": "Campos obrigatórios ausentes."}), 400
-            
+        
+            user_type = data.get('tipo', '0')
+        
+            if user_type not in ['0', '1']:
+                user_type = '0'
+        
             try:
-                if User.create(data['nome'], data['senha'], data['email'], data['tipo']):
-                    return jsonify({"success": "Novo usuario inserido com sucesso!"}), 201
+                if User.create(data['nome'], data['senha'], data['email'], user_type):
+                    return jsonify({
+                        "success": "Novo usuário criado com sucesso!",
+                        "tipo": user_type
+                    }), 201
                 else:
                     return jsonify({"error": "Falha ao criar usuário"}), 500
             except Exception as e:
-                return jsonify({"error": f"Erro ao inserir o usuario: {str(e)}"}), 500
+                return jsonify({"error": f"Erro ao criar usuário: {str(e)}"}), 500
 
     @staticmethod
     def list():

@@ -1,37 +1,43 @@
 @use "../../app.scss" as *;
 
-
 div#login {
     background-color: $colorBlack000;
     color: #fff;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: lighter;
 
-    
-    img{
+    img {
         position: absolute;
         width: 300px;
         height: 150px;
         top: 20px;
         left: 50px;
-    
-        @media screen and (max-width: 1024px){
+
+        @media screen and (max-width: 1024px) {
             width: 200px;
             height: auto;
         }
     }
 
-    form{
+    form {
         border: 2px solid $amarelo;
-        border-radius:1rem;
+        border-radius: 1rem;
 
-        button{
+        button {
             background-color: $amarelo;
             opacity: 0.5;
             transition: 250ms;
 
-            &:hover{
+            &:hover {
                 opacity: 0.9;
+            }
+        }
+
+        a {
+            transition: 300ms;
+            cursor: pointer;
+            &:hover {
+                scale: 1.05;
             }
         }
     }
