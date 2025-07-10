@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./about.scss"
-import maletaIcon from '../../../assets/maletaIcon.png'
-import missaoIcon from '../../../assets/missaoIcon.png'
+import maletaIcon from '../../assets/maletaIcon.png'
+import missaoIcon from '../../assets/missaoIcon.png'
 
 
 export function About() {

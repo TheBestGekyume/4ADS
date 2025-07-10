@@ -1,7 +1,6 @@
-import React from 'react';
 import './modalError.scss';
 
-export function ModalError({ msg, closeModalError, code }) {
+export function ModalError({ msg, closeModalError }) {
     return (
         <div className='container-modal-error'>
             <p>{msg}</p>

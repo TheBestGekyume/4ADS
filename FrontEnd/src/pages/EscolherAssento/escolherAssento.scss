@@ -1,4 +1,4 @@
-@use '../../../app.scss' as *;
+@use '../../app.scss' as *;
 .container-selecao-assentos {
     text-align: center;
     .onibus-container {
@@ -37,11 +37,7 @@
         }
 
     }
-    .buscar-viagem{
-        
-
-    }
-
+    
     .container-tipo-assento{
         display: flex;
         flex-direction: row;

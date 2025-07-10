@@ -23,6 +23,10 @@ export function Login({ setToken }) {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setUserCredentials(prev => ({ ...prev, [name]: value }));
+
+        if ((name === 'senha' || name === 'confirmarSenha') && statusErros === "As senhas não coincidem") {
+            setStatusErros(null);
+        }
     };
 
     const logarUsuario = (e) => {
@@ -54,16 +58,29 @@ export function Login({ setToken }) {
     const registrarUsuario = (e) => {
         e.preventDefault();
 
-        if (!userCredentials.nome || !userCredentials.email || !userCredentials.senha) {
+        // Validações
+        if (!userCredentials.nome || !userCredentials.email || !userCredentials.senha || !userCredentials.confirmarSenha) {
             setStatusErros("Preencha todos os campos obrigatórios");
             return;
         }
 
-        axios.post('http://localhost:5000/usuarios/criar', {
+        if (userCredentials.senha !== userCredentials.confirmarSenha) {
+            setStatusErros("As senhas não coincidem");
+            return;
+        }
+
+        if (userCredentials.senha.length < 6) {
+            setStatusErros("A senha deve ter pelo menos 6 caracteres");
+            return;
+        }
+
+        const payload = {
             nome: userCredentials.nome,
             email: userCredentials.email,
-            senha: userCredentials.senha,
-        }, {
+            senha: userCredentials.senha
+        };
+
+        axios.post('http://localhost:5000/usuarios/criar', payload, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -71,7 +88,11 @@ export function Login({ setToken }) {
             .then(() => {
                 setStatusErros("Registro realizado com sucesso! Faça login.");
                 setIsRegistering(false);
-                setUserCredentials(prev => ({ ...prev, senha: '' }));
+                setUserCredentials(prev => ({
+                    ...prev,
+                    senha: '',
+                    confirmarSenha: ''
+                }));
             })
             .catch((error) => {
                 console.error("Erro no registro:", error);
@@ -90,7 +111,8 @@ export function Login({ setToken }) {
                 <>
                     <img src={busIcon} alt="viação calango" />
 
-                    <div className='d-flex justify-content-center align-items-center vh-100 flex-column'>
+                    <div className='d-flex justify-content-center align-items-center flex-column pt-5'  
+                        >
                         <form className='text-center py-3 px-4' onSubmit={isRegistering ? registrarUsuario : logarUsuario}>
                             <h1>{isRegistering ? 'Criar Conta' : 'Fazer Login'}</h1>
 
@@ -131,6 +153,20 @@ export function Login({ setToken }) {
                                     onChange={handleInputChange}
                                 />
                             </div>
+
+                            {isRegistering && (
+                                <div className='d-flex flex-column text-start mb-3'>
+                                    <label className='fs-4' htmlFor="confirmarSenha">Confirmar Senha</label>
+                                    <input
+                                        className='form-control mt-2'
+                                        name='confirmarSenha'
+                                        type="password"
+                                        placeholder="Confirme sua senha"
+                                        value={userCredentials.confirmarSenha}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                            )}
 
 
                             <button type="submit" className='btn btn-lg w-100 text-black mt-4'>
