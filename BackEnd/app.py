@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify
 from flask_cors import CORS
 
 # Import das rotas de usuário
@@ -15,35 +15,23 @@ from trips.delete import delete_trip
 from trips.edit import edit_trip
 from trips.get_by_id import get_trip_by_id
 from trips.list import list_trips
+from trips.purchase_seat import purchase_seat
 
 app = Flask(__name__)
 CORS(app, resources={
-    r"/autenticar": {
-        "origins": "http://localhost:3000",  # Apenas um valor string
-        "methods": ["POST", "OPTIONS"],
-        "allow_headers": ["Content-Type"],
+    r"/*": {
+        "origins": ["http://localhost:3000", "http://localhost:5173"],
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"],
         "supports_credentials": True,
         "expose_headers": ["Content-Type"]
     }
 })
 
 
-# @app.after_request
-# def after_request(response):
-#     response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
-#     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-#     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-#     response.headers.add('Access-Control-Allow-Credentials', 'true')
-#     return response
-
 # Rotas de Usuário
-@app.route('/autenticar', methods=['POST', 'OPTIONS'])
+@app.route('/autenticar', methods=['POST'])
 def auth_route():
-    if request.method == 'OPTIONS':
-        response = jsonify()
-        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
-        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-        return response
     return authenticate_user()
 
 @app.route('/usuarios', methods=['GET'])
@@ -66,6 +54,8 @@ def delete_user_route():
 def list_user_trips_route():
     return list_user_trips()
 
+
+
 # Rotas de Viagem
 @app.route('/viagens', methods=['GET'])
 def list_trips_route():
@@ -86,6 +76,10 @@ def delete_trip_route():
 @app.route('/viagens/<int:trip_id>', methods=['GET'])
 def get_trip_by_id_route(trip_id):
     return get_trip_by_id(trip_id)
+
+@app.route('/viagens/comprar-assento', methods=['PUT'])
+def purchase_seat_route():
+    return purchase_seat()
 
 if __name__ == '__main__':
     app.run(debug=True)

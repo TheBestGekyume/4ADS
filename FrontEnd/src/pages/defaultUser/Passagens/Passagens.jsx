@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DestinoUser } from '../../../components/Destino-usuario/DestinoUser.jsx';
 import { PassagemInfo } from '../../../components/Passagem-Info/PassagemInfo.jsx';

@@ -26,7 +26,7 @@ export function PassagemInfo({ local }) {
     };
 
     const refreshViagens = () => {
-        axios.get('http://localhost/5000/viagens')
+        axios.get('http://localhost:5000/viagens')
             .then((response) => {
                 setViagens(response.data || []);
             })
@@ -40,7 +40,7 @@ export function PassagemInfo({ local }) {
         if (!confirmDelete) return;
 
         try {
-            const response = await axios.delete('http://localhost/5000/crudViagem/deletarViagem.php', {
+            const response = await axios.delete('http://localhost:5000/viagens/excluir', {
                 data: { id_viagem: idViagem }
             });
 

@@ -27,7 +27,7 @@ export function Home() {
   const closeModal = () => setIsModalOpen(false);
 
   const refreshViagens = () => {
-    axios.get('http://localhost/viacaocalango/BackEnd/crudViagem/listarViagem.php')
+    axios.get('http://localhost:5000/viagens')
       .then((response) => {
         setViagens(response.data || []);
       })

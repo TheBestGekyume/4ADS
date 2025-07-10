@@ -20,7 +20,7 @@ export function MinhasViagens() {
                 return;
             }
 
-            const viagensResponse = await axios.post('http://localhost/5000/crudUsuario/listarViagensUsuario.php', {
+            const viagensResponse = await axios.post('http://localhost:5000/usuarios/viagens', {
                 usuario_id: usuarioId
             });
 
