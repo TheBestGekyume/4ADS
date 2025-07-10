@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import onibus from "../../../assets/onibus.png";
@@ -39,15 +39,14 @@ export function EscolherAssento() {
 
         axios.get(`http://localhost:5000/viagens/${viagemId}`)
             .then((response) => {
-                const viagens = response.data;
-                const viagemSelecionada = viagens.find(v => v.id_viagem === viagemId);
-                if (viagemSelecionada) {
+                const viagemData = response.data;
+                if (viagemData) {
                     setViagem({
-                        id: viagemSelecionada.id_viagem,
-                        assentos: viagemSelecionada.assentos,
-                        preco: viagemSelecionada.preco,
-                        data_de_partida: viagemSelecionada.data_de_partida,
-                        horario_de_partida: viagemSelecionada.horario_de_partida
+                        id: viagemData.id_viagem,
+                        assentos: viagemData.assentos,
+                        preco: viagemData.preco,
+                        data_de_partida: viagemData.data_de_partida,
+                        horario_de_partida: viagemData.horario_de_partida
                     });
                 } else {
                     console.error("Viagem não encontrada.");
@@ -55,6 +54,7 @@ export function EscolherAssento() {
             })
             .catch((error) => {
                 console.error('Erro ao carregar viagens:', error);
+                setModalError('Erro ao carregar detalhes da viagem');
             });
     }, [viagemId, navigate]);
 
