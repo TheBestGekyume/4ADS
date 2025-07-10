@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import "./navBar.scss";
 import busIcon from "../../assets/busIcon.png";

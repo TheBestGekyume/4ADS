@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './destinoUser.scss';
 import origem from "../../assets/origem.png";
 import date from "../../assets/date.png";

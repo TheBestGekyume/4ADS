@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Card } from '../../../components/Card/Card';
-import { ModalAddViagem } from '../../../components/ModalAddViagem/ModalAddViagem';
+import { Card } from '../../components/Card/Card';
+import { ModalAddViagem } from '../../components/ModalAddViagem/ModalAddViagem';
 import "./home.scss";
 import axios from 'axios';
-import { ItemNavContext } from '../../../context/itemNavContext';
+import { ItemNavContext } from '../../context/itemNavContext';
 
 export function Home() {
   const token = window.sessionStorage.getItem("token");

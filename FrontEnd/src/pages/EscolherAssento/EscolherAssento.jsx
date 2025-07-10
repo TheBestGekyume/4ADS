@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import onibus from "../../../assets/onibus.png";
-import disponivel from "../../../assets/assentoDisponivel.png";
-import indisponivel from "../../../assets/assentoIndisponivel.png";
-import selecionado from "../../../assets/assentoSelecionado.png";
-import { LoadConfirm } from '../../../components/LoadConfirm';
+import onibus from "../../assets/onibus.png";
+import disponivel from "../../assets/assentoDisponivel.png";
+import indisponivel from "../../assets/assentoIndisponivel.png";
+import selecionado from "../../assets/assentoSelecionado.png";
+import { LoadConfirm } from '../../components/LoadConfirm';
 import './escolherAssento.scss';
-import { ModalError } from '../../../components/ModalError/ModalError';
+import { ModalError } from '../../components/ModalError/ModalError';
 
 export function EscolherAssento() {
     const [viagem, setViagem] = useState(null);
@@ -189,8 +189,7 @@ export function EscolherAssento() {
             )}
             {confirmarPedido && (
                 <div>
-                    <h1 style={{ color: '#09CE9F' }}>Passagem comprada com sucesso!</h1>
-                    <h4 style={{ color: '#FFF' }}>Consulte mais detalhes em Meus Pedidos.</h4>
+                    <h1 className='text-white'>Passagem comprada com sucesso!</h1>
                     <LoadConfirm />
                 </div>
             )}
