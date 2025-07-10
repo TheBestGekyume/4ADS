@@ -7,6 +7,7 @@ import { About } from './pages/About/About.jsx';
 import { Passagens } from './pages/Passagens/Passagens.jsx';
 import { EscolherAssento } from './pages/EscolherAssento/EscolherAssento.jsx';
 import { MinhasViagens } from './pages/MinhasViagens/MinhasViagens.jsx';
+import { Perfil } from './pages/Perfil/Perfil.jsx';
 //components
 import { Footer } from './components/Footer/Footer.jsx';
 import { NavBar } from './components/NavBar/NavBar.jsx';
@@ -29,6 +30,7 @@ export function App() {
               <Route path="/passagens" element={<Passagens />} />
               <Route path="/escolherAssento" element={<EscolherAssento />} />
               <Route path="/minhasViagens" element={<MinhasViagens />} />
+              <Route path="/perfil" element={<Perfil />} />
             </Routes>
           </main>
         </div>
