@@ -1,10 +1,8 @@
-📋 Pré-requisitos
+📋 Pré-requisitos:
 Python 3.8+
+MySQL
 
-MySQL/MariaDB
-
-Node.js (para o frontend)
-
+🖥️ Frontend (React)
 🔧 Backend (Python/Flask)
 
 1. Configure o Banco de Dados
