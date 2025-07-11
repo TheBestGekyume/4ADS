@@ -55,6 +55,15 @@ class User:
             conn.close()
 
     @classmethod
+    def get_by_email(cls, email):
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM usuario WHERE email = %s", (email,))
+        user = cursor.fetchone()
+        conn.close()
+        return user
+
+    @classmethod
     def get_all(cls):
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)

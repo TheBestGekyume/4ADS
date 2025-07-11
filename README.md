@@ -21,16 +21,10 @@ venv\Scripts\activate     # Windows
 pip install -r requirements.txt
 
 3. Configure as Variáveis de Ambiente
-Crie um arquivo .env na raiz do projeto:
-
-DB_HOST=localhost
-DB_USER=seu_usuario
-DB_PASSWORD=sua_senha
-DB_NAME=nome_do_banco
-SECRET_KEY=sua_chave_secreta
+Em "config.py" ajuste o objeto db_config 
 
 4. Inicie o Servidor
-flask run --host=0.0.0.0 --port=5000
+python app.py
 
 5. Iniciar o front-end:
 cd frontend/

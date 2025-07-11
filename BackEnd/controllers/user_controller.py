@@ -1,6 +1,7 @@
 from flask import jsonify, request
 from config import get_db_connection
 from models.user import User
+import bcrypt
 
 class UserController:
     @staticmethod
@@ -14,16 +15,23 @@ class UserController:
                     "mensagem": "Dados de autenticação incompletos"
                 }), 400
             
-            user = User.authenticate(data['email'], data['senha'])
+            user = User.get_by_email(data['email'])
             
             if user:
-                return jsonify({
-                    "status": 200,
-                    "mensagem": "Autenticação bem-sucedida",
-                    "id_usuario": user['id_usuario'],
-                    "nome": user['nome'],
-                    "tipo": user['tipo']
-                })
+                # Verificar a senha com o hash armazenado
+                if bcrypt.checkpw(data['senha'].encode('utf-8'), user['senha'].encode('utf-8')):
+                    return jsonify({
+                        "status": 200,
+                        "mensagem": "Autenticação bem-sucedida",
+                        "id_usuario": user['id_usuario'],
+                        "nome": user['nome'],
+                        "tipo": user['tipo']
+                    })
+                else:
+                    return jsonify({
+                        "status": 404,
+                        "mensagem": "Usuário não encontrado ou senha incorreta"
+                    }), 404
             else:
                 return jsonify({
                     "status": 404,
@@ -45,7 +53,10 @@ class UserController:
                 user_type = '0'
         
             try:
-                if User.create(data['nome'], data['senha'], data['email'], user_type):
+                # Criptografar a senha antes de armazenar
+                hashed_password = bcrypt.hashpw(data['senha'].encode('utf-8'), bcrypt.gensalt())
+                
+                if User.create(data['nome'], hashed_password.decode('utf-8'), data['email'], user_type):
                     return jsonify({
                         "success": "Novo usuário criado com sucesso!",
                         "tipo": user_type
@@ -60,11 +71,28 @@ class UserController:
         try:
             user = User.get_by_id(user_id)
             if user:
+                # Não retornar a senha hash por segurança
+                user.pop('senha', None)
                 return jsonify(user)
             else:
                 return jsonify({"error": "Usuário não encontrado"}), 404
         except Exception as e:
             return jsonify({"error": f"Erro ao buscar usuário: {str(e)}"}), 500
+
+
+    @staticmethod
+    def list():
+        try:
+            conn = get_db_connection()
+            cursor = conn.cursor(dictionary=True)
+            cursor.execute("SELECT id_usuario, nome, email, tipo FROM usuario")  # Não retorne senhas!
+            users = cursor.fetchall()
+            return jsonify(users)
+        except Exception as e:
+            return jsonify({"error": f"Erro ao listar usuários: {str(e)}"}), 500
+        finally:
+            cursor.close()
+            conn.close()
 
     @staticmethod
     def update():
@@ -91,7 +119,10 @@ class UserController:
             
                 nome = data.get('nome', current_data['nome'])
                 email = data.get('email', current_data['email'])
-                senha = data.get('senha', current_data['senha'])
+                
+                senha = current_data['senha']
+                if 'senha' in data:
+                    senha = bcrypt.hashpw(data['senha'].encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
             
                 query = """
                     UPDATE usuario 
