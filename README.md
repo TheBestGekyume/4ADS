@@ -1,9 +1,5 @@
-📋 Pré-requisitos:
-Python 3.8+
-MySQL
-
 🖥️ Frontend (React)
-🔧 Backend (Python/Flask)
+🔧 Backend (Python/Flask & MySql)
 
 1. Configure o Banco de Dados
 # Importe o arquivo SQL (mesmo do projeto anterior)
