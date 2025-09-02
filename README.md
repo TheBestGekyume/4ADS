@@ -2,7 +2,7 @@
 🔧 Backend (Python/Flask & MySql)
 
 1. Configure o Banco de Dados
-# Importe o arquivo SQL (mesmo do projeto anterior)
+# Importe o arquivo SQL
 mysql -u seu_usuario -p < database.sql
 
 2. Instale as Dependências
